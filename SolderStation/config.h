@@ -21,8 +21,9 @@
 
 #define TEMP_STEP 5
 
-#include "config_xxx.h"
+//#include "config_xxx.h"
 //#include "config_dc3mkb.h"
+#include "config_mo.h"
 
 #if defined(SERIAL_MODULE) && defined(DEBUG)
 #define SERIAL_DEBUG

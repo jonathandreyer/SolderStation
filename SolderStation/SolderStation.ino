@@ -36,7 +36,14 @@ void update_iron_temperature() {
    int iron_temperature = get_iron_temperature();
    DEBUG_LOG("Iron Temp.=");
    DEBUG_LOG_LN(iron_temperature);
-   int temperature = get_standby_mode()? get_standby_temperature():get_target_temperature();
+   int temperature;
+   if(get_standby_mode()) {
+     DEBUG_LOG("Standby Temp.=");
+     temperature = get_standby_temperature();
+   } else {
+     DEBUG_LOG("Target Temp.=");
+     temperature = get_target_temperature();
+   }
    int iron_pwm = compute_iron_pwm(iron_temperature, temperature);
    set_iron_pwm(iron_pwm);
    iron_pwm = get_iron_pwm();
@@ -85,14 +92,12 @@ void setup() {
   display_init();
    
   // Check if we load default settings or not
-  if(!buttons[BUTTON_UP].check(Button::OneShot) || !buttons[BUTTON_DOWN].check(Button::OneShot)) {
+  if(!(digitalRead(BUTTON_UP_PIN)^BUTTON_UP_INVERTED) || !(digitalRead(BUTTON_DOWN_PIN)^BUTTON_DOWN_INVERTED)) {
     // Load settings
     load_settings();
   } else {
     DEBUG_LOG_LN("Load default settings");
   }
-  buttons[BUTTON_UP].acknowledge();
-  buttons[BUTTON_DOWN].acknowledge();
   
   // Init timers
   uiTimer.setInterval(DELAY_UI_LOOP, display_update);
