@@ -30,10 +30,11 @@
 
 #define CONFIG_DC3MKB 1
 #define CONFIG_ELECTROLAB 2
-#define CONFIG_XXX 3
+#define CONFIG_SOLDERSHIELD 3
+#define CONFIG_XXX 4
 
 // Set the board name. Please change the name of the configuration following your board
-//#define CONFIG_NAME CONFIG_XXX
+#define CONFIG_NAME CONFIG_SOLDERSHIELD
 
 // Use correct configuration
 #if CONFIG_NAME==CONFIG_XXX
@@ -42,6 +43,8 @@
 #include "config_dc3mkb.h"
 #elif CONFIG_NAME==CONFIG_ELECTROLAB
 #include "config_electrolab.h"
+#elif CONFIG_NAME==CONFIG_SOLDERSHIELD
+#include "config_soldershield.h"
 #else
 #error Invalid or no configuration defined
 #endif //CONFIG_NAME
